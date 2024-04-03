@@ -1,5 +1,6 @@
 package com.org.academiaspring.service;
 
+import com.org.academiaspring.config.ValidacaoException;
 import com.org.academiaspring.model.AlunoConverter;
 import com.org.academiaspring.model.AlunoDto;
 import com.org.academiaspring.repository.AlunoRepositorio;
@@ -29,7 +30,7 @@ public class AlunoServico {
 
     public AlunoDto buscarPorMatricula(String matricula) {
         return AlunoConverter.toAlunoDto(alunoRepositorio.findByMatricula(matricula).orElseThrow(
-                () -> new RuntimeException("Aluno não encontrado")));
+                () -> new ValidacaoException("Aluno não encontrado")));
     }
 
     public void deletarPorMatricula(String matricula) {
