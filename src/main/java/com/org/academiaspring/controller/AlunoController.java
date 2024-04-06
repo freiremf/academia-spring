@@ -24,31 +24,26 @@ public class AlunoController implements AlunoApi {
     }
 
     @Override
-    @GetMapping
     public ResponseEntity<Page<AlunoDto>> buscarAlunos(@PageableDefault(direction = Sort.Direction.ASC) Pageable pageable) {
         return ok(alunoServico.buscarTodos(pageable));
     }
 
     @Override
-    @GetMapping("/filtro")
     public ResponseEntity<Page<AlunoDto>> buscarAlunosPorFiltro(AlunoFiltroDto filtro, @PageableDefault(direction = Sort.Direction.ASC) Pageable pageable){
         return ok(alunoServico.buscarPorFiltro(filtro, pageable));
     }
 
     @Override
-    @GetMapping("/{matricula}")
     public ResponseEntity<AlunoDto> buscarAlunoPorMatricula(String matricula) {
         return ok(alunoServico.buscarPorMatricula(matricula));
     }
 
     @Override
-    @PostMapping
     public ResponseEntity<AlunoDto> salvarNovoAluno(AlunoDto alunoDto) {
         return ok(alunoServico.salvar(alunoDto));
     }
 
     @Override
-    @DeleteMapping("/{matricula}")
     public ResponseEntity<Void> deletarAlunoPorMatricula(String matricula) {
         alunoServico.deletarPorMatricula(matricula);
         return ok().build();
