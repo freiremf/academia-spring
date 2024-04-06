@@ -1,9 +1,12 @@
 package com.org.academiaspring.controller;
 
 import com.org.academiaspring.model.AlunoDto;
+import com.org.academiaspring.model.AlunoFiltroDto;
 import com.org.academiaspring.service.AlunoServico;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,25 +24,26 @@ public class AlunoController implements AlunoApi {
     }
 
     @Override
-    @GetMapping
-    public ResponseEntity<Page<AlunoDto>> buscarAlunos(Pageable pageable) {
+    public ResponseEntity<Page<AlunoDto>> buscarAlunos(@PageableDefault(direction = Sort.Direction.ASC) Pageable pageable) {
         return ok(alunoServico.buscarTodos(pageable));
     }
 
     @Override
-    @GetMapping("/{matricula}")
+    public ResponseEntity<Page<AlunoDto>> buscarAlunosPorFiltro(AlunoFiltroDto filtro, @PageableDefault(direction = Sort.Direction.ASC) Pageable pageable){
+        return ok(alunoServico.buscarPorFiltro(filtro, pageable));
+    }
+
+    @Override
     public ResponseEntity<AlunoDto> buscarAlunoPorMatricula(String matricula) {
         return ok(alunoServico.buscarPorMatricula(matricula));
     }
 
     @Override
-    @PostMapping
     public ResponseEntity<AlunoDto> salvarNovoAluno(AlunoDto alunoDto) {
         return ok(alunoServico.salvar(alunoDto));
     }
 
     @Override
-    @DeleteMapping("/{matricula}")
     public ResponseEntity<Void> deletarAlunoPorMatricula(String matricula) {
         alunoServico.deletarPorMatricula(matricula);
         return ok().build();

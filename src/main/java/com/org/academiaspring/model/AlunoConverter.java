@@ -5,7 +5,7 @@ public class AlunoConverter {
     }
 
     public static AlunoDto toAlunoDto(Aluno aluno) {
-        return new AlunoDto(aluno.getMatricula(), aluno.getNome(), aluno.getTelefone(), aluno.getEmail());
+        return new AlunoDto(aluno.getMatricula(), aluno.getNome(), aluno.getTelefone(), aluno.getEmail(), aluno.getCpf());
     }
 
     public static Aluno toAluno(AlunoDto alunoDto) {
@@ -14,6 +14,7 @@ public class AlunoConverter {
         aluno.setNome(alunoDto.nome());
         aluno.setTelefone(alunoDto.telefone());
         aluno.setEmail(alunoDto.email());
+        aluno.setCpf(alunoDto.cpf());
         return aluno;
     }
 }
