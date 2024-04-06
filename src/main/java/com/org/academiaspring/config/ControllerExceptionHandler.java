@@ -14,4 +14,10 @@ public class ControllerExceptionHandler {
         ErrorMessage message = new ErrorMessage(ex.getMessage());
         return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(value = {BadRequestException.class})
+    public ResponseEntity<ErrorMessage> badRequestException(BadRequestException ex, WebRequest request) {
+        ErrorMessage message = new ErrorMessage(ex.getMessage());
+        return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+    }
 }
