@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Tag(name = "Aluno", description = "API de Alunos")
@@ -36,7 +37,7 @@ public interface AlunoApi {
             @ApiResponse(responseCode = "200", description = "Aluno encontrado com sucesso"),
             @ApiResponse(responseCode = "400", description = "Aluno não encontrado")
     })
-    ResponseEntity<AlunoDto> buscarAlunoPorMatricula(String matricula);
+    ResponseEntity<AlunoDto> buscarAlunoPorMatricula(@PathVariable String matricula);
 
     @Operation(summary = "Salvar novo aluno")
     @PostMapping
@@ -51,5 +52,5 @@ public interface AlunoApi {
     @Operation(summary = "Deletar aluno por matrícula")
     @DeleteMapping("/{matricula}")
     @ApiResponse(responseCode = "200", description = "Aluno deletado com sucesso")
-    ResponseEntity<Void> deletarAlunoPorMatricula(String matricula);
+    ResponseEntity<Void> deletarAlunoPorMatricula(@PathVariable String matricula);
 }
