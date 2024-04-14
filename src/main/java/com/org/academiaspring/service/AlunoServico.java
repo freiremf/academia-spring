@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -41,6 +42,7 @@ public class AlunoServico {
                 .orElseThrow(() -> new ResourceNotFoundException("Nenhum aluno encontrado"));
     }
 
+    @Transactional
     public AlunoDto salvar(AlunoDto dto) {
         validarInformacoesParaSalvar(dto);
         return AlunoConverter.toAlunoDto(alunoRepositorio.save(AlunoConverter.toAluno(dto)));
@@ -51,6 +53,7 @@ public class AlunoServico {
                 () -> new ResourceNotFoundException("Aluno não encontrado")));
     }
 
+    @Transactional
     public void deletarPorMatricula(String matricula) {
         alunoRepositorio.deleteByMatricula(matricula);
     }
